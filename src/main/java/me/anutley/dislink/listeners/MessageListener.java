@@ -11,6 +11,7 @@ import me.anutley.dislink.util.WebhookUtil;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.Webhook;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -31,10 +32,12 @@ public class MessageListener extends ListenerAdapter {
         TextChannel startingChannel = event.getChannel();
 
         for (DisLinkChannel channel : ChannelUtil.getDestinationChannels(event.getChannel())) {
-            if (Objects.requireNonNull(startingChannel.retrieveWebhooks().complete().stream()
+            Webhook webhook = startingChannel.retrieveWebhooks().complete().stream()
                     .filter(hook -> hook.getName().equals("Dislink Webhook"))
-                    .findFirst().orElse(null)).getId().equals(event.getAuthor().getId())) {
-                return;
+                    .findFirst().orElse(null);
+
+            if (webhook != null) {
+                if (webhook.getId().equals(event.getAuthor().getId())) return;
             }
 
             if (event.isWebhookMessage() && channel.isIgnoreWebhooks()) {
