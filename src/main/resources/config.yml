@@ -15,6 +15,6 @@ Channels:
   #    IgnoreAttachments: false - Whether attachments should be ignored
   #    IgnoreEmbeds: false - Whether embeds should be ignored
   #    Mentions: - Which types of mentions the webhook message is permitted to use. If these aren't included they will all be false by default
-  #      - Roles: true
-  #      - Users: true
-  #      - Everyone: true
+  #      Roles: true
+  #      Users: true
+  #      Everyone: true
