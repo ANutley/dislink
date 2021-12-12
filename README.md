@@ -8,7 +8,7 @@ To correctly setup dislink, follow the below steps!
 1. Clone the project using the command `git clone https://github.com/ANutley/dislink`
 2. Enter the directory was created using `cd dislink`
 3. Build the project using `gradlew shadowJar` (Windows) or `./gradlew shadowJar` (Linux / Mac)
-4. Once the project has been built find the jar named `dislink-1.0-SNAPSHOT-all.jar`
+4. Once the project has been built find the jar named `dislink-1.0-SNAPSHOT-all.jar` in `/builds/libs`
 5. Find the default config file [here](https://github.com/ANutley/dislink/blob/master/src/main/resources/config.yml)
 6. Copy the jar file and the config file to a new directory
 7. Create a bot application [here](https://discord.com/developers/applications) and copy the bot-token
