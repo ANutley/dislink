@@ -1,4 +1,7 @@
 # DisLink
+
+A bot that uses webhooks to link channels across guilds
+
 ## Setup
 To correctly setup dislink, follow the below steps!
 
