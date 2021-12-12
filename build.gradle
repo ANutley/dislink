@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+}
+mainClassName = 'me.anutley.titan.Titan'
+
+group 'me.anutley'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url "https://m2.dv8tion.net/releases" }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+    // Discord
+    implementation 'net.dv8tion:JDA:4.4.0_351'
+    implementation 'club.minnced:discord-webhooks:0.7.3'
+
+    // Logging
+    implementation 'ch.qos.logback:logback-classic:1.2.7'
+
+    // Configuration
+    implementation 'org.spongepowered:configurate-yaml:4.1.2'
+}
+
+test {
+    useJUnitPlatform()
+}
