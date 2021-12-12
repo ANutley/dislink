@@ -20,11 +20,11 @@ public class WebhookUtil {
         try {
             webhook =
                     channel.retrieveWebhooks().complete().stream()
-                            .filter(hook -> hook.getName().equals("Dislink"))
+                            .filter(hook -> hook.getName().equals("Dislink Webhook"))
                             .findFirst().orElse(null);
 
             if (webhook == null) {
-                webhook = channel.createWebhook("Dislink").complete();
+                webhook = channel.createWebhook("Dislink Webhook").complete();
             }
         } catch (Exception e) {
             e.printStackTrace();
