@@ -81,7 +81,7 @@ public class MessageListener extends ListenerAdapter {
                             webhookMessageBuilder.addFile(attachment.getFileName(), inputStream);
                             inputStream.close();
                         } catch (Throwable t) {
-                            DisLink.getLogger().debug("Failed to copy attachment " + attachment.getFileName(), t);
+                            DisLink.debug("Failed to copy attachment " + attachment.getFileName());
                         }
                     }
                     for (MessageEmbed embed : event.getMessage().getEmbeds()) {
