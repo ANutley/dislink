@@ -3,7 +3,7 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
-mainClassName = 'me.anutley.titan.Titan'
+mainClassName = 'me.anutley.dislink.DisLink'
 
 group 'me.anutley'
 version '1.0-SNAPSHOT'
@@ -27,6 +27,16 @@ dependencies {
     // Configuration
     implementation 'org.spongepowered:configurate-yaml:4.1.2'
 }
+
+jar {
+    manifest {
+        attributes(
+                'Implementation-Title': 'dislink',
+                'Main-Class': 'me.anutley.dislink.DisLink'
+        )
+    }
+}
+
 
 test {
     useJUnitPlatform()
