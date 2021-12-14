@@ -32,13 +32,6 @@ public class MessageListener extends ListenerAdapter {
         TextChannel startingChannel = event.getChannel();
 
         for (DisLinkChannel channel : ChannelUtil.getDestinationChannels(event.getChannel())) {
-            Webhook webhook = startingChannel.retrieveWebhooks().complete().stream()
-                    .filter(hook -> hook.getName().equals("Dislink Webhook"))
-                    .findFirst().orElse(null);
-
-            if (webhook != null) {
-                if (webhook.getId().equals(event.getAuthor().getId())) return;
-            }
 
             if (event.isWebhookMessage() && channel.isIgnoreWebhooks()) {
                 DisLink.debug("Received a webhook message, however webhook messages for this link are disabled!");
@@ -48,6 +41,16 @@ public class MessageListener extends ListenerAdapter {
             if (event.getAuthor().isBot() && channel.isIgnoreBots()) {
                 DisLink.debug("Received a bot message, however bot messages for this link are disabled!");
                 continue;
+            }
+
+            if (event.isWebhookMessage()) {
+                Webhook webhook = startingChannel.retrieveWebhooks().complete().stream()
+                        .filter(hook -> hook.getName().equals("Dislink Webhook"))
+                        .findFirst().orElse(null);
+
+                if (webhook != null) {
+                    if (webhook.getId().equals(event.getAuthor().getId())) return;
+                }
             }
 
             WebhookClient webhookClient = WebhookUtil.createOrGetWebhook(channel.getChannel());
