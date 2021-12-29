@@ -18,4 +18,37 @@ To correctly setup dislink, follow the below steps!
 
 After that you should be good to go.
 
+--- 
+
+### DiscordSRV setup
+
+If you want to use this bot as a way to bridge DiscordSRV chat between two discord servers while v2 is in progress, this is how!
+
+First make sure you have followed all the steps above!
+
+Scenario: You have Guild A which is where the channel (Channel A) that DiscordSRV bridges chat with. 
+You want this to also be forwarded to a channel (Channel B) which is in Guild B. 
+In this example Channel A will have an ID of 123456789012345678 and Channel B will have an ID of 098765432109876543
+
+This is how the Channels definition would look for this example:
+
+```yaml
+  - Channel1: "123456789012345678"
+    Channel2: "098765432109876543"
+    Direction: "3"
+    IgnoreBots: false
+    IgnoreWebhooks: false
+    IgnoreAttachments: false
+    IgnoreEmbeds: false
+    Mentions:
+      Roles: false
+      Users: true
+      Everyone: false
+```
+
+This means that **any** content sent in Channel 1 will be forwarded to Channel 2 and vice versa. This allows people to communicate between the two guilds,
+and Minecraft messages in Channel 1 will be sent to Channel 2. You can then customise it to your liking, for example blocking attachments from being forwarded
+
+---
+
 If you have any questions ask [here](https://discord.gg/NtbNhGt3XN)
