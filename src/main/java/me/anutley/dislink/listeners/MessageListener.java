@@ -100,6 +100,7 @@ public class MessageListener extends ListenerAdapter {
                     }
                 }
                 webhookClient.send(webhookMessageBuilder.build());
+                DisLink.debug("Send a message from " + startingChannel + " to " + channel.getChannel() + " by " + event.getAuthor() + " with webhook url " + webhookClient.getUrl());
             }
         }
     }
