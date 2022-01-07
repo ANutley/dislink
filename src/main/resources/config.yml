@@ -7,14 +7,23 @@ Debug: false
 
 Channels:
   # Example channels definition
-  #  - Channel1: "883054132137701458" - One of the two channels to link together
-  #    Channel2: "883054132137701458" - One of the two channels to link together
-  #    Direction: "3" - The way to sync the channels. 1 = Channel1 -> Channel2, 2 = Channel1 <- Channel2, 3 = Channel1 <-> Channel2
-  #    IgnoreBots: false - Whether messages from bots should be ignored
-  #    IgnoreWebhooks: false - Whether messages from webhooks should be ignored
-  #    IgnoreAttachments: false - Whether attachments should be ignored
-  #    IgnoreEmbeds: false - Whether embeds should be ignored
-  #    Mentions: - Which types of mentions the webhook message is permitted to use. If these aren't included they will all be false by default
-  #      Roles: true
-  #      Users: true
-  #      Everyone: true
+
+  # One of the two channels to link together
+  - Channel1: "123456789012345678"
+  # One of the two channels to link together
+    Channel2: "098765432109876543"
+  # "3" - The way to sync the channels. 1 = Channel1 -> Channel2, 2 = Channel1 <- Channel2, 3 = Channel1 <-> Channel2
+    Direction: "3"
+  # Whether messages from bots should be ignored
+    IgnoreBots: false
+  # Whether messages from webhooks should be ignored
+    IgnoreWebhooks: false
+  # Whether attachments should be ignored
+    IgnoreAttachments: false
+  # Whether embeds should be ignored
+    IgnoreEmbeds: false
+  # Which types of mentions the webhook message is permitted to use. If these aren't included they will all be false by default
+    Mentions:
+      Roles: false
+      Users: true
+      Everyone: false
