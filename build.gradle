@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 mainClassName = 'me.anutley.dislink.DisLink'
@@ -34,6 +35,26 @@ jar {
                 'Implementation-Title': 'dislink',
                 'Main-Class': 'me.anutley.dislink.DisLink'
         )
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+
+    var type = version.toString().endsWith("-SNAPSHOT") ? "snapshots" : "releases"
+
+    repositories {
+        maven {
+            url = "https://repo.anutley.me/" + type
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
     }
 }
 
