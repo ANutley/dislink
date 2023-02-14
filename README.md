@@ -51,4 +51,4 @@ and Minecraft messages in Channel 1 will be sent to Channel 2. You can then cust
 
 ---
 
-If you have any questions ask [here](https://discord.gg/NtbNhGt3XN)
+If you have any questions ask [here](https://discord.gg/vwwe3ThHxK)
