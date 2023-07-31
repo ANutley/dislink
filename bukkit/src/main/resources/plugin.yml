@@ -1,0 +1,6 @@
+name: DisLink
+version: ${version}
+author: ANutley
+website: https://github.com/anutley/dislink
+main: me.anutley.dislink.bukkit.DisLinkBukkitLoader
+api-version: 1.13

@@ -1,7 +1,7 @@
 name: Publish lib
 on:
   push:
-    branches: [ master ]
+    branches: [ master, v2 ]
 jobs:
   publish:
     runs-on: ubuntu-latest
