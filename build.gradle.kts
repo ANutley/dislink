@@ -12,6 +12,10 @@ plugins {
 
 }
 
+allprojects {
+    project.extra.set("artifactId", (if (rootProject == project) project.name else "${rootProject.name}-${project.name}").toLowerCase())
+}
+
 subprojects {
     apply(plugin = "java")
     apply(plugin = "maven-publish")
@@ -22,9 +26,6 @@ subprojects {
 
     tasks {
         withType<Jar> {
-            archiveVersion.set("${project.properties["version"]}")
-
-            archiveClassifier.set("unshaded")
             archiveFileName.set("DisLink-${archiveBaseName.get().capitalized()}-${archiveVersion.get()}-unshaded.jar")
         }
 
@@ -67,6 +68,7 @@ subprojects {
         publications {
             create<MavenPublication>("maven") {
                 from(components["java"])
+                artifactId = project.extra.get("artifactId").toString()
             }
         }
 

@@ -1,6 +1,7 @@
 .gradle
-/build/
-config.yml
+*build/
+/config/
+/jars/
 
 # Ignore Gradle GUI config
 gradle-app.setting
