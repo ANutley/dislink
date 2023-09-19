@@ -1,6 +1,8 @@
 # DisLink V2
 DisLink is a Discord bot used to forward messages between Discord channels. This can be done across guilds or within the same guild. Thread channels are also supported
 
+If you need support with DisLink please [join my Discord server](https://discord.gg/vwwe3ThHxK)
+
 ## Downloads
 |            | Releases                                                                                                        | Snapshots                                                                                                        |
 |------------|-----------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
