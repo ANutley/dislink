@@ -27,8 +27,6 @@ package me.anutley.dislink.bukkit;
 import me.anutley.dislink.common.DisLink;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-
 public class DisLinkBukkitLoader extends JavaPlugin {
     @Override
     public void onEnable() {

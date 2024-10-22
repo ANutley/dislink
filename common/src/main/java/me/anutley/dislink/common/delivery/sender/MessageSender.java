@@ -143,7 +143,7 @@ public abstract class MessageSender<D, M extends DisLinkMessageBuilder<?>> {
                 messages = getMessagesSplit(getPlaceholderReplacedMessage(messageSettingKey()), Strategy.ANYWHERE);
             }
 
-            if (StringUtil.isEmpty(message.getContentRaw()) && message.getEmbeds().size() == 0) { // only a file has been sent, needs slightly different logic
+            if (StringUtil.isEmpty(message.getContentRaw()) && message.getEmbeds().isEmpty()) { // only a file has been sent, needs slightly different logic
                 sendOnlyFiles(d);
                 return;
             }
@@ -212,7 +212,7 @@ public abstract class MessageSender<D, M extends DisLinkMessageBuilder<?>> {
     private void editAttachments(M messageBuilder, D deliveryMethod, long messageId) {
         AtomicReference<Map<String, List<InputStream>>> attachments = new AtomicReference<>(new HashMap<>());
 
-        if (getAttachments().size() == 0) return;
+        if (getAttachments().isEmpty()) return;
 
         CompletableFuture.runAsync(() -> {
 
@@ -251,7 +251,7 @@ public abstract class MessageSender<D, M extends DisLinkMessageBuilder<?>> {
 
     protected List<MessageEmbed> getEmbeds() {
         if (disLink.settingsUtil().getBoolean(pairConfig, "ignore.embeds")) {
-            if (message.getEmbeds().size() > 0) {
+            if (!message.getEmbeds().isEmpty()) {
                 disLink.debug("Embeds in the original message were found, but are not being forwarded due to being ignored");
             }
             return null;
@@ -263,7 +263,7 @@ public abstract class MessageSender<D, M extends DisLinkMessageBuilder<?>> {
     protected List<Message.Attachment> getAttachments() {
 
         if (disLink.settingsUtil().getBoolean(pairConfig, "ignore.attachments")) {
-            if (message.getAttachments().size() > 0) {
+            if (!message.getAttachments().isEmpty()) {
                 disLink.debug("Attachments in the original message were found, but are not being forwarded due to being ignored");
             }
             return Collections.emptyList();
@@ -309,10 +309,10 @@ public abstract class MessageSender<D, M extends DisLinkMessageBuilder<?>> {
             }
         }
 
-        format = format.replaceAll("author_nickname", memberNull ? author.getName() : member.getEffectiveName())
-                .replaceAll("author_guild_avatar", memberNull ? author.getEffectiveAvatarUrl() : member.getEffectiveAvatarUrl())
-                .replaceAll("author_toprole_name", topRole == null ? "" : topRole.getName())
-                .replaceAll("author_toprole_mention", topRole == null ? "" : topRole.getAsMention());
+        format = format.replaceAll("%author_nickname%", memberNull ? author.getName() : member.getEffectiveName())
+                .replaceAll("%author_guild_avatar%", memberNull ? author.getEffectiveAvatarUrl() : member.getEffectiveAvatarUrl())
+                .replaceAll("%author_toprole_name%", topRole == null ? "" : topRole.getName())
+                .replaceAll("%author_toprole_mention%", topRole == null ? "" : topRole.getAsMention());
 
 
         format = replaceChannelPlaceholders(format, "origin", originChannel());

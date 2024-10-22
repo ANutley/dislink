@@ -27,6 +27,6 @@ package me.anutley.dislink.common.util;
 public class StringUtil {
 
     public static boolean isEmpty(String string) {
-        return string == null || string.trim().equals("");
+        return string == null || string.trim().isEmpty();
     }
 }
