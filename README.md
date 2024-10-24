@@ -9,8 +9,6 @@ If you need support with DisLink please [join my Discord server](https://discord
 | Standalone | [Download](https://repo.anutley.me/api/maven/latest/file/releases/me/anutley/dislink-standalone?classifier=all) | [Download](https://repo.anutley.me/api/maven/latest/file/snapshots/me/anutley/dislink-standalone?classifier=all) |
 | Bukkit     | [Download](https://repo.anutley.me/api/maven/latest/file/releases/me/anutley/dislink-bukkit?classifier=all)     | [Download](https://repo.anutley.me/api/maven/latest/file/snapshots/me/anutley/dislink-bukkit?classifier=all)     |
 
-<sub> (there are no releases for V2 at the moment) </sub>
-
 ## Setup
 1. Create a bot application through the Discord developer panel
 2. Generate a bot token and save it somewhere secure
