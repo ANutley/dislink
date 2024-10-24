@@ -321,7 +321,7 @@ public abstract class MessageSender<D, M extends DisLinkMessageBuilder<?>> {
         format = replaceGuildPlaceholders(format, "origin", originChannel());
         format = replaceGuildPlaceholders(format, "destination", destinationChannel());
 
-        format = format.replaceAll("%message%", message.getContentRaw());
+        format = format.replaceAll("%message%", Matcher.quoteReplacement(message.getContentRaw()));
 
         Matcher match = Pattern.compile("%.+%").matcher(format);
 
