@@ -98,6 +98,7 @@ release {
         preTagCommitMessage.set("[Release] - release commit: ")
         tagCommitMessage.set("[Release] - creating tag: ")
         newVersionCommitMessage.set("[Release] - new version commit: ")
+        ignoredSnapshotDependencies.add("io.papermc.paper:paper-api:")
 
         git {
             requireBranch.set("v2")
