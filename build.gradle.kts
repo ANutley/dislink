@@ -100,7 +100,7 @@ release {
         newVersionCommitMessage.set("[Release] - new version commit: ")
 
         git {
-            requireBranch.set("master")
+            requireBranch.set("v2")
         }
     }
 }
