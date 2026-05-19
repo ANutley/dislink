@@ -38,29 +38,31 @@ import java.util.List;
 public class ChannelPairConfig {
 
     @Comment("""
-            An optional identifier for this channel group, used to look up channel-settings overrides.
-            If left blank, settings are matched by the legacy first-channel + second-channel id pair.
+            A unique identifier for this block of channels.
+            This is used to match the settings in this file to the channels that are used to send messages to or from
+            This can be left blank if you are still using the legacy 'first-channel' / 'second-channel' format
+            however changing to the 'members' format is recommended
             """)
-    private String groupId = "";
+    private String groupId = "SET TO UNIQUE VALUE";
 
     @Comment("""
-            The list of channels in this group. Messages from any channel where read = true are forwarded
-            to every other channel in the group where write = true. Both flags default to true.
-            channel-id: the Discord channel id (any guild message channel, threads included).
-            webhook-url: the webhook to send through. If auto-create-webhooks is enabled in main.conf
-            and the bot has MANAGE_WEBHOOKS, this is filled in for you.
-            Side note: custom emotes from other servers require a self-created webhook — Discord won't
-            allow it via auto-created ones.
+            The list of channels in this group:
+            - Messages from any channel where read = true are forwarded to every other channel in the group where write = true. 
+              Both flags default to true.
+            - channel-id: the Discord channel id (any guild message channel, threads included).
+            - webhook-url: the webhook to send through. If auto-create-webhooks is enabled in main.conf
+              and the bot has MANAGE_WEBHOOKS, this is filled in for you.
+            Side note: custom emotes from other servers require a self-created webhook — Discord won't allow it via auto-created ones.
             """)
     private List<ChannelConfig> members = new ArrayList<>(Arrays.asList(new ChannelConfig(), new ChannelConfig()));
 
-    @Comment("Legacy field — kept readable for migration. Use `members` for new configs.")
+    @Comment("Legacy field — kept readable for migration. Use `members` for new configs. Potentially removed in later version")
     private ChannelConfig firstChannel = null;
 
-    @Comment("Legacy field — kept readable for migration. Use `members` for new configs.")
+    @Comment("Legacy field — kept readable for migration. Use `members` for new configs. Potentially removed in later version")
     private ChannelConfig secondChannel = null;
 
-    @Comment("Legacy field — kept readable for migration. Values: FIRST_TO_SECOND, SECOND_TO_FIRST, BOTH.")
+    @Comment("Legacy field — kept readable for migration. Potentially removed in later version. Values: FIRST_TO_SECOND, SECOND_TO_FIRST, BOTH. ")
     private Direction direction = null;
 
     @Comment("These values below can be omitted and the default values specified in \"global-settings.conf\" will be used instead")
@@ -77,10 +79,10 @@ public class ChannelPairConfig {
         String webhookUrl = "";
 
         @Comment("If true, messages sent in this channel are forwarded to other group members.")
-        boolean read = true;
+        boolean send = true;
 
         @Comment("If true, messages from other group members are forwarded into this channel.")
-        boolean write = true;
+        boolean receive = true;
 
         public String channelId() {
             return channelId;
@@ -94,12 +96,12 @@ public class ChannelPairConfig {
             this.webhookUrl = webhookUrl;
         }
 
-        public boolean read() {
-            return read;
+        public boolean send() {
+            return send;
         }
 
-        public boolean write() {
-            return write;
+        public boolean receive() {
+            return receive;
         }
     }
 
@@ -151,10 +153,10 @@ public class ChannelPairConfig {
 
     /**
      * Whether messages from this channel should be forwarded to other group members.
-     * For new-schema entries, uses the channel's {@code read} flag.
+     * For new-schema entries, uses the channel's {@code send} flag.
      * For legacy first/second entries, derives from the {@code direction} enum.
      */
-    public boolean canRead(ChannelConfig channel) {
+    public boolean canSend(ChannelConfig channel) {
         if (isLegacyMember(channel)) {
             if (direction == null) return true;
             if (channel == firstChannel) {
@@ -162,13 +164,13 @@ public class ChannelPairConfig {
             }
             return direction == Direction.BOTH || direction == Direction.SECOND_TO_FIRST;
         }
-        return channel.read();
+        return channel.send();
     }
 
     /**
      * Whether messages from other group members should be forwarded into this channel.
      */
-    public boolean canWrite(ChannelConfig channel) {
+    public boolean canReceive(ChannelConfig channel) {
         if (isLegacyMember(channel)) {
             if (direction == null) return true;
             if (channel == firstChannel) {
@@ -176,7 +178,7 @@ public class ChannelPairConfig {
             }
             return direction == Direction.BOTH || direction == Direction.FIRST_TO_SECOND;
         }
-        return channel.write();
+        return channel.receive();
     }
 
     private boolean isLegacyMember(ChannelConfig channel) {

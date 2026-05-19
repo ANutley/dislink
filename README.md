@@ -24,9 +24,9 @@ If you need support with DisLink please [join my Discord server](https://discord
 Global settings can be found in `global-settings.conf` and define the default values for forwarding messages. This means the `channel-settings` block in `channels.conf` can be deleted to remove repetition if you want all forwarding to be the same format
 
 ### Channel groups
-A channel group is a set of channels that forward messages between each other. Each channel in a group has independent `read` and `write` flags:
-* `read = true` — messages sent in this channel get forwarded to other members
-* `write = true` — messages from other members get forwarded into this channel
+A channel group is a set of channels that forward messages between each other. Each channel in a group has independent `send` and `receive` flags:
+* `send = true` — messages sent in this channel get forwarded to other members
+* `receive = true` — messages from other members get forwarded into this channel
 
 Both default to `true`, which gives you two-way mirroring. Drop one to make a channel send-only or receive-only.
 
@@ -38,18 +38,18 @@ channels = [
     # WEBHOOK or PLAINTEXT
     type = WEBHOOK
     members = [
-      { channel-id = "12345", webhook-url = "", read = true, write = true },
-      { channel-id = "54321", webhook-url = "", read = true, write = true },
+      { channel-id = "12345", webhook-url = "", send = true, receive = true },
+      { channel-id = "54321", webhook-url = "", send = true, receive = true },
       # A read-only mirror: receives messages from the others but doesn't push its own back
-      { channel-id = "99999", webhook-url = "", read = false, write = true }
+      { channel-id = "99999", webhook-url = "", send = false, receive = true }
     ]
   },
   {
     group-id = "announcements"
     type = WEBHOOK
     members = [
-      { channel-id = "56789", webhook-url = "", read = true, write = false },
-      { channel-id = "98765", webhook-url = "", read = false, write = true }
+      { channel-id = "56789", webhook-url = "", send = true, receive = false },
+      { channel-id = "98765", webhook-url = "", send = false, receive = true }
     ]
   }
 ]
@@ -60,11 +60,11 @@ channels = [
 ### Migrating from the old two-channel config
 The pre-v2.1 `first-channel` / `second-channel` / `direction` form still loads — you don't have to touch your existing config. It maps to the new schema like this:
 
-| Old `direction`     | Equivalent `members` flags                                                 |
-|---------------------|----------------------------------------------------------------------------|
-| `BOTH`              | both channels `read = true, write = true`                                  |
-| `FIRST_TO_SECOND`   | first `read = true, write = false`, second `read = false, write = true`    |
-| `SECOND_TO_FIRST`   | first `read = false, write = true`, second `read = true, write = false`    |
+| Old `direction`   | Equivalent `members` flags                                                  |
+|-------------------|-----------------------------------------------------------------------------|
+| `BOTH`            | both channels `send = true, receive = true`                                 |
+| `FIRST_TO_SECOND` | first `send = true, receive = false`, second `send = false, receive = true` |
+| `SECOND_TO_FIRST` | first `send = false, receive = true`, second `send = true, receive = false` |
 
 When you're ready to migrate, replace the `first-channel` / `second-channel` / `direction` block with a `members` list. The `channel-settings` block keeps working — to be sure overrides match across upgrades, set a `group-id`.
 ## Placeholders available

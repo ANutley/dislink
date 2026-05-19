@@ -70,6 +70,7 @@ public class SettingsUtil {
             return groupId.equals(nodeGroupId);
         }
 
+        // fallback to matching by channel ids if group id is not set
         ChannelConfig first = group.firstChannel();
         ChannelConfig second = group.secondChannel();
         if (first != null && second != null) {

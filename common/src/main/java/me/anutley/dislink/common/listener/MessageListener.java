@@ -97,11 +97,11 @@ public class MessageListener extends ListenerAdapter {
             }
 
             if (origin == null) continue;
-            if (!group.canRead(origin)) continue;
+            if (!group.canSend(origin)) continue;
 
             for (ChannelConfig destination : members) {
                 if (destination == origin) continue;
-                if (!group.canWrite(destination)) continue;
+                if (!group.canReceive(destination)) continue;
 
                 String destinationId = destination.channelId();
                 if (destinationId == null || destinationId.isEmpty()) continue;
