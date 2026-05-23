@@ -163,9 +163,9 @@ public class WebhookSender extends MessageSender<WebhookClientBuilder, DisLinkWe
 
     public AllowedMentions allowedMentions() {
         return AllowedMentions.none()
-                .withParseEveryone(getAllowedMentions().users())
+                .withParseUsers(getAllowedMentions().users())
                 .withParseRoles(getAllowedMentions().roles())
-                .withParseUsers(getAllowedMentions().everyone());
+                .withParseEveryone(getAllowedMentions().everyone());
     }
 
 }

@@ -243,9 +243,9 @@ public abstract class MessageSender<D, M extends DisLinkMessageBuilder<?>> {
 
     public AllowedMentionsBuilder getAllowedMentions() {
         return new AllowedMentionsBuilder(
-                disLink.settingsUtil().getBoolean(pairConfig, "mentions.everyone"),
+                disLink.settingsUtil().getBoolean(pairConfig, "mentions.user"),
                 disLink.settingsUtil().getBoolean(pairConfig, "mentions.role"),
-                disLink.settingsUtil().getBoolean(pairConfig, "mentions.user")
+                disLink.settingsUtil().getBoolean(pairConfig, "mentions.everyone")
         );
     }
 

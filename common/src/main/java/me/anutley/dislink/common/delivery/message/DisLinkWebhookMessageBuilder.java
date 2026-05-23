@@ -28,6 +28,7 @@ import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
 import club.minnced.discord.webhook.send.WebhookMessage;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import me.anutley.dislink.common.delivery.sender.MessageSender;
+import me.anutley.dislink.common.delivery.sender.WebhookSender;
 
 public class DisLinkWebhookMessageBuilder extends DisLinkMessageBuilder<WebhookMessage> {
 
@@ -40,6 +41,7 @@ public class DisLinkWebhookMessageBuilder extends DisLinkMessageBuilder<WebhookM
         WebhookMessageBuilder webhookMessageBuilder = new WebhookMessageBuilder()
                 .setUsername(sender.getPlaceholderReplacedMessage("messages.webhooks.username-format"))
                 .setAvatarUrl(sender.getPlaceholderReplacedMessage("messages.webhooks.avatar-url"))
+                .setAllowedMentions(((WebhookSender) sender).allowedMentions())
                 .setContent(content());
 
         embeds().forEach(embed -> webhookMessageBuilder.addEmbeds(WebhookEmbedBuilder.fromJDA(embed).build()));
